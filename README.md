@@ -7,7 +7,7 @@ A DateTime Picker Flutter package.
 DateTimeInputWidget({  
 > Key key,  
   @required this.pickerWidth,   //Max 330pts  
-  @required this.dateTimeWidget,  //Widget is wrapped in Inkwell and recieves date/time {usually Text()}  
+  @required this.dateTimeWidget,  //Widget function is wrapped in Inkwell and recieves date/time {usually Text()}  
   this.pickerBodyColors,  
   this.dateWheelColors,  
   this.timeWheelColors,  
