@@ -3,6 +3,7 @@
 A DateTime Picker Flutter package.
 
 ## Getting Started
+### Make sure the widget is passed a function
 
 DateTimeInputWidget({  
 > Key key,  
