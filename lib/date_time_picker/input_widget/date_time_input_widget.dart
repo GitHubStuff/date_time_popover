@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import '../common.dart';import 'package:flutter/material.dart';
+import '../common.dart';
+import 'package:flutter/material.dart';
 
 typedef Widget DateTimeWidget(DateTime dateTime);
 
@@ -47,6 +48,8 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
     _width = MediaQuery.of(context).size.width;
     _height = MediaQuery.of(context).size.height;
 
+// Wrap the passed widget in gesture detector, the 'onTap' will bring up the popover widget
+// that is wrapped in an Overlay widget
     return GestureDetector(
       child: StreamBuilder<DateTime>(
         stream: _dateTimeStream.stream,
@@ -66,6 +69,8 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
     super.dispose();
   }
 
+// The overlay will figure the best place to align the widget (top or bottom),
+// and with an offset
   OverlayEntry _createOverlayEntry() {
     double offsetPercentage = 0.0;
     ArrowSide arrowSide = ArrowSide.top;
@@ -84,7 +89,6 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
     }
 
     RenderBox renderBox = context.findRenderObject();
-    //var size = renderBox.size / 2.0;
     var offset = renderOffset(renderBox.localToGlobal(Offset.zero));
     return OverlayEntry(
         builder: (context) => Stack(

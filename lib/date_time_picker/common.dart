@@ -35,6 +35,3 @@ export '../date_time_picker/time_widgets/meridian_widget.dart';
 export '../date_time_picker/time_widgets/minute_widget.dart';
 export '../date_time_picker/time_widgets/second_widget.dart';
 export '../date_time_picker/time_widgets/time_widget.dart';
-
-import 'package:intl/intl.dart';
-
