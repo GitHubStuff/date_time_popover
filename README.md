@@ -10,6 +10,7 @@ DateTimeInputWidget({
 > Key key,  
   @required this.pickerWidth,   //Min 300pts  (MINIMAL_PICKER_WIDTH)
   @required this.dateTimeWidget,  // Widget name(DateTime result){}  
+  this.initialDateTime,  // Starting dateTime (defaults to DateTime.now())
   this.pickerBodyColors,  
   this.dateWheelColors,  
   this.timeWheelColors,  

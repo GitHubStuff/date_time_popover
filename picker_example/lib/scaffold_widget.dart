@@ -34,11 +34,13 @@ class ScaffoldWidget extends StatelessWidget with WidgetsBindingObserver {
   }
 
   Widget _inkwell() {
+    final startedDateTime = DateTime.now().subtract(Duration(seconds: 86400 + (3 * 3600) + (14 * 60)));
     return Column(
       children: <Widget>[
         DateTimeInputWidget(
           pickerWidth: WIDTH,
           dateTimeWidget: startTime,
+          initialDateTime: startedDateTime,
         ),
         Expanded(
           child: Container(),
@@ -48,6 +50,7 @@ class ScaffoldWidget extends StatelessWidget with WidgetsBindingObserver {
           child: DateTimeInputWidget(
             pickerWidth: WIDTH,
             dateTimeWidget: finishTime,
+            initialDateTime: null,
           ),
         ),
       ],

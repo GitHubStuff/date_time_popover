@@ -8,11 +8,14 @@ const String SET_BUTTON_TEXT = 'Set';
 //
 class PopoverContainerWidget extends StatelessWidget with WidgetsBindingObserver, DateMeasurements {
   static DateTime _displayDateTime = DateTime.now();
+
   final PickerSize _pickerSize;
 
-  PopoverContainerWidget({Key key, @required PickerSize pickerSize})
+  PopoverContainerWidget({Key key, @required PickerSize pickerSize, @required initalDateTime})
       : _pickerSize = pickerSize,
-        super(key: key);
+        super(key: key) {
+    _displayDateTime = initalDateTime;
+  }
 
   @override
   Widget build(BuildContext context) {

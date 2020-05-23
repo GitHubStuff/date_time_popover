@@ -8,6 +8,7 @@ typedef Widget DateTimeWidget(DateTime dateTime);
 class DateTimeInputWidget extends StatefulWidget {
   final double pickerWidth;
   final DateTimeWidget dateTimeWidget;
+  final DateTime initialDateTime;
   final ModeColor pickerBodyColors;
   final ModeColor dateWheelColors;
   final ModeColor timeWheelColors;
@@ -18,6 +19,7 @@ class DateTimeInputWidget extends StatefulWidget {
     Key key,
     @required this.pickerWidth,
     @required this.dateTimeWidget,
+    this.initialDateTime,
     this.pickerBodyColors,
     this.dateWheelColors,
     this.timeWheelColors,
@@ -36,10 +38,12 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
   PickerSize _pickerSize;
   double _width;
   double _height;
+  DateTime _startingDateTime;
 
   @override
   void initState() {
     super.initState();
+    _startingDateTime = widget.initialDateTime ?? DateTime.now();
     _pickerSize = PickerSize(width: widget.pickerWidth);
   }
 
@@ -144,7 +148,9 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
     return MultiBlocProvider(
       providers: [
         BlocProvider<DateTimeBloc>(
-          create: (BuildContext context) => DateTimeBloc(DateTime.now()),
+          create: (BuildContext context) => DateTimeBloc(
+            _startingDateTime,
+          ),
         ),
         BlocProvider<PickerBloc>(create: (BuildContext context) => PickerBloc())
       ],
@@ -163,6 +169,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
           }
           return PopoverContainerWidget(
             pickerSize: _pickerSize,
+            initalDateTime: _startingDateTime,
           );
         },
       ),
