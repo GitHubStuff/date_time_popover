@@ -24,7 +24,7 @@ appear and the user scrolls to their desired date and time.
 
 example:  
 -- The first time this is called dateTime WILL BE null  
-Widget startTime(DateTime dateTime) {  
-    if (dateTime == null) { return Container();}
-    return Text(dateTime.toString());  
+Widget startTime(BuildContext context,DateTime dateTime) {  
+..    if (dateTime == null) { return Container();}  
+..    return Text(dateTime.toString());  
   }  
