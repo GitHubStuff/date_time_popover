@@ -14,6 +14,7 @@ class DateTimeInputWidget extends StatefulWidget {
   final ModeColor timeWheelColors;
   final ModeColor setButtonColors;
   final ModeColor pickerHiliteColors;
+  final num arrowAdjustment;
   final num xAdjustment;
   final num yAdjustment;
 
@@ -27,6 +28,7 @@ class DateTimeInputWidget extends StatefulWidget {
     this.timeWheelColors,
     this.setButtonColors,
     this.pickerHiliteColors,
+    this.arrowAdjustment = 0.0,
     this.xAdjustment = 0.0,
     this.yAdjustment = 0.0,
   })  : assert(pickerWidth >= MINIMAL_PICKER_WIDTH),
@@ -100,32 +102,33 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
     RenderBox renderBox = context.findRenderObject();
     var offset = renderOffset(renderBox.localToGlobal(Offset.zero));
     return OverlayEntry(
-        builder: (context) => Stack(
-              children: [
-                Positioned(
-                  left: 0,
-                  top: 0,
-                  width: _width,
-                  child: GestureDetector(
-                    onTap: () {
-                      this._overlayEntry.remove();
-                    },
-                    child: Opacity(
-                      opacity: 0.2,
-                      child: Container(
-                        height: _height,
-                        color: Colors.transparent,
-                      ),
-                    ),
-                  ),
+      builder: (context) => Stack(
+        children: [
+          Positioned(
+            left: 0,
+            top: 0,
+            width: _width,
+            child: GestureDetector(
+              onTap: () {
+                this._overlayEntry.remove();
+              },
+              child: Opacity(
+                opacity: 0.2,
+                child: Container(
+                  height: _height,
+                  color: Colors.transparent,
                 ),
-                Positioned(
-                  left: offset.dx + widget.xAdjustment,
-                  top: offset.dy + _pickerSize.fontSize + widget.yAdjustment,
-                  child: _stack(offsetPercentage, arrowSide),
-                ),
-              ],
-            ));
+              ),
+            ),
+          ),
+          Positioned(
+            left: offset.dx + widget.xAdjustment,
+            top: offset.dy + _pickerSize.fontSize + widget.yAdjustment,
+            child: _stack(offsetPercentage, arrowSide),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _stack(double offsetPercentage, ArrowSide arrowSide) {
@@ -137,7 +140,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
       timeWheelColors: widget.timeWheelColors,
       child: Stack(children: <Widget>[
         BoundingContainerWithArrows(
-          offsetPercentage: offsetPercentage,
+          offsetPercentage: offsetPercentage + widget.arrowAdjustment,
           pickerSize: _pickerSize,
           arrowSide: arrowSide,
         ),

@@ -42,6 +42,7 @@ class ScaffoldWidget extends StatelessWidget with WidgetsBindingObserver {
           dateTimeWidget: startTime,
           initialDateTime: startedDateTime,
           yAdjustment: 9.0,
+          arrowAdjustment: 0.0,
         ),
         Expanded(
           child: Container(),
