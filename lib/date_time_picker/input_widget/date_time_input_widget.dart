@@ -3,7 +3,7 @@ import 'dart:async';
 import '../common.dart';
 import 'package:flutter/material.dart';
 
-typedef Widget DateTimeWidget(DateTime dateTime);
+typedef Widget DateTimeWidget(BuildContext context, DateTime dateTime);
 
 class DateTimeInputWidget extends StatefulWidget {
   final double pickerWidth;
@@ -59,7 +59,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
         stream: _dateTimeStream.stream,
         builder: (context, snapshot) {
           // Inital result will be null
-          return widget.dateTimeWidget(snapshot.data);
+          return widget.dateTimeWidget(context, snapshot.data);
         },
       ),
       onTap: () {

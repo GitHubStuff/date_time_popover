@@ -57,12 +57,12 @@ class ScaffoldWidget extends StatelessWidget with WidgetsBindingObserver {
     );
   }
 
-  Widget startTime(DateTime dateTime) {
+  Widget startTime(BuildContext context, DateTime dateTime) {
     String text = (dateTime == null) ? 'Start Here' : formattedDate(dateTime) + ' ' + formattedTime(dateTime);
     return Text(text);
   }
 
-  Widget finishTime(DateTime dateTime) {
+  Widget finishTime(BuildContext context, DateTime dateTime) {
     String text = (dateTime == null) ? 'Finish Here' : formattedDate(dateTime) + ' ' + formattedTime(dateTime);
     return Text(text);
   }
