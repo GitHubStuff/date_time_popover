@@ -14,6 +14,8 @@ class DateTimeInputWidget extends StatefulWidget {
   final ModeColor timeWheelColors;
   final ModeColor setButtonColors;
   final ModeColor pickerHiliteColors;
+  final num xAdjustment;
+  final num yAdjustment;
 
   DateTimeInputWidget({
     Key key,
@@ -25,6 +27,8 @@ class DateTimeInputWidget extends StatefulWidget {
     this.timeWheelColors,
     this.setButtonColors,
     this.pickerHiliteColors,
+    this.xAdjustment = 0.0,
+    this.yAdjustment = 0.0,
   })  : assert(pickerWidth >= MINIMAL_PICKER_WIDTH),
         super(key: key);
 
@@ -116,8 +120,8 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
                   ),
                 ),
                 Positioned(
-                  left: offset.dx,
-                  top: offset.dy + _pickerSize.fontSize,
+                  left: offset.dx + widget.xAdjustment,
+                  top: offset.dy + _pickerSize.fontSize + widget.yAdjustment,
                   child: _stack(offsetPercentage, arrowSide),
                 ),
               ],
