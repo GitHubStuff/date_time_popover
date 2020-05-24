@@ -64,8 +64,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
       child: StreamBuilder<DateTime>(
         stream: _dateTimeStream.stream,
         builder: (context, snapshot) {
-          // Inital result will be null
-          return widget.dateTimeWidget(context, snapshot.data);
+          return widget.dateTimeWidget(context, snapshot.data ?? widget.initialDateTime);
         },
       ),
       onTap: () {
