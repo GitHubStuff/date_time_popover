@@ -93,6 +93,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
       child: StreamBuilder<DateTime>(
         stream: _dateTimeStream.stream,
         builder: (context, snapshot) {
+          _dateTimeStream.dispose();
           if (!snapshot.hasData) {
             Log.d('date_time_input_widget NO DATA');
             return widget.dateTimeWidget(
