@@ -80,7 +80,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
     super.initState();
     _startingDateTime = _timeWrapper(widget.initialDateTime ?? DateTime.now());
     _pickerSize = PickerSize(width: widget.pickerWidth);
-    Log.t('date_time_input_widget initState()');
+    Log.t('....CALLED ONLY ONCE??? ..............date_time_input_widget initState()');
   }
 
   @override
@@ -97,9 +97,10 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             Log.d('date_time_input_widget NO DATA');
+            _oldStartDateTime = _timeWrapper(widget.initialDateTime);
             return widget.dateTimeWidget(
               context,
-              _timeWrapper(widget.initialDateTime),
+              _oldStartDateTime,
               DateTimeInputState.inital,
             );
           } else {
