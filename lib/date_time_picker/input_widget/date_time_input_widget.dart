@@ -166,12 +166,12 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
             child: GestureDetector(
               onTap: () {
                 // Dismisses overlay without change
-                this._overlayEntry.remove();
                 widget.dateTimeWidget(
                   context,
                   _timeWrapper(widget.initialDateTime),
                   DateTimeInputState.dismissed,
                 );
+                this._overlayEntry.remove();
               },
               child: Opacity(
                 opacity: 0.2,
