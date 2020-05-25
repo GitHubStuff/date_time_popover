@@ -5,6 +5,21 @@ import 'package:flutter/material.dart';
 
 typedef Widget DateTimeWidget(BuildContext context, DateTime dateTime);
 
+DateTime _timeWrapper(DateTime dateTime) {
+  return (dateTime == null)
+      ? null
+      : DateTime(
+          dateTime.year,
+          dateTime.month,
+          dateTime.day,
+          dateTime.hour,
+          dateTime.minute,
+          dateTime.second,
+          0,
+          0,
+        );
+}
+
 class DateTimeInputWidget extends StatefulWidget {
   final double pickerWidth;
   final DateTimeWidget dateTimeWidget;
@@ -49,7 +64,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
   @override
   void initState() {
     super.initState();
-    _startingDateTime = widget.initialDateTime ?? DateTime.now();
+    _startingDateTime = _timeWrapper(widget.initialDateTime ?? DateTime.now());
     _pickerSize = PickerSize(width: widget.pickerWidth);
   }
 
@@ -64,7 +79,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
       child: StreamBuilder<DateTime>(
         stream: _dateTimeStream.stream,
         builder: (context, snapshot) {
-          return widget.dateTimeWidget(context, snapshot.data ?? widget.initialDateTime);
+          return widget.dateTimeWidget(context, snapshot.data ?? _timeWrapper(widget.initialDateTime));
         },
       ),
       onTap: () {
@@ -109,6 +124,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
             width: _width,
             child: GestureDetector(
               onTap: () {
+                // Dismisses overlay without change
                 this._overlayEntry.remove();
               },
               child: Opacity(
@@ -171,6 +187,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
       child: BlocBuilder<DateTimeBloc, DateTimeState>(
         builder: (context, state) {
           if (state is DateTimeSetState) {
+            // dismisses overlay and adds event
             this._overlayEntry.remove();
             _dateTimeStream.sink.add(state.dateTime);
           }
