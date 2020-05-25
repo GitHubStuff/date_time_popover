@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_date_time_popover/flutter_date_time_popover.dart';
 import 'package:flutter_project_package/mode_themes/mode_theme.dart';
+import 'package:flutter_project_package/tracers/tracers.dart' as Log;
 
 const double WIDTH = 300;
 
@@ -59,12 +60,14 @@ class ScaffoldWidget extends StatelessWidget with WidgetsBindingObserver {
     );
   }
 
-  Widget startTime(BuildContext context, DateTime dateTime) {
+  Widget startTime(BuildContext context, DateTime dateTime, DateTimeInputState inputState) {
+    Log.d('startTime: ${(dateTime?.toString ?? null)}, ${inputState.toString()}');
     String text = (dateTime == null) ? 'Start Here' : formattedDate(dateTime) + ' ' + formattedTime(dateTime);
     return Text(text);
   }
 
-  Widget finishTime(BuildContext context, DateTime dateTime) {
+  Widget finishTime(BuildContext context, DateTime dateTime, DateTimeInputState inputState) {
+    Log.d('finishTime: ${(dateTime?.toString ?? null)}, ${inputState.toString()}');
     String text = (dateTime == null) ? 'Finish Here' : formattedDate(dateTime) + ' ' + formattedTime(dateTime);
     return Text(text);
   }

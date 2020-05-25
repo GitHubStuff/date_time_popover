@@ -3,7 +3,18 @@ import 'dart:async';
 import '../common.dart';
 import 'package:flutter/material.dart';
 
-typedef Widget DateTimeWidget(BuildContext context, DateTime dateTime);
+typedef Widget DateTimeWidget(
+  BuildContext context,
+  DateTime dateTime,
+  DateTimeInputState inputState,
+);
+
+enum DateTimeInputState {
+  inital,
+  dismissed,
+  displayed,
+  userSet,
+}
 
 DateTime _timeWrapper(DateTime dateTime) {
   return (dateTime == null)
@@ -79,12 +90,29 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
       child: StreamBuilder<DateTime>(
         stream: _dateTimeStream.stream,
         builder: (context, snapshot) {
-          return widget.dateTimeWidget(context, snapshot.data ?? _timeWrapper(widget.initialDateTime));
+          if (!snapshot.hasData) {
+            return widget.dateTimeWidget(
+              context,
+              _timeWrapper(widget.initialDateTime),
+              DateTimeInputState.inital,
+            );
+          } else {
+            return widget.dateTimeWidget(
+              context,
+              _timeWrapper(snapshot.data),
+              DateTimeInputState.userSet,
+            );
+          }
         },
       ),
       onTap: () {
         this._overlayEntry = this._createOverlayEntry();
         Overlay.of(context).insert(this._overlayEntry);
+        widget.dateTimeWidget(
+          context,
+          _timeWrapper(widget.initialDateTime),
+          DateTimeInputState.displayed,
+        );
       },
     );
   }
@@ -126,6 +154,11 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
               onTap: () {
                 // Dismisses overlay without change
                 this._overlayEntry.remove();
+                widget.dateTimeWidget(
+                  context,
+                  _timeWrapper(widget.initialDateTime),
+                  DateTimeInputState.dismissed,
+                );
               },
               child: Opacity(
                 opacity: 0.2,
