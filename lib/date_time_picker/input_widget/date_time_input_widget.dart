@@ -77,6 +77,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
 
   @override
   void initState() {
+    SetLevel(VERBOSE);
     super.initState();
     _startingDateTime = _timeWrapper(widget.initialDateTime ?? DateTime.now());
     _pickerSize = PickerSize(width: widget.pickerWidth);
@@ -96,7 +97,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
         stream: _dateTimeStream.stream,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            Log.d('** date_time_input_widget NO DATA');
+            Log.t('** date_time_input_widget NO DATA');
             _oldStartDateTime = _timeWrapper(widget.initialDateTime);
             return widget.dateTimeWidget(
               context,
@@ -108,7 +109,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
                 (_oldStartDateTime != snapshot.data) ? DateTimeInputState.userSet : DateTimeInputState.noChange;
             _oldStartDateTime = snapshot.data;
             if (dateTimeInputState == DateTimeInputState.userSet) _startingDateTime = snapshot.data;
-            Log.d('date_time_input_widget hasData .. state:${EnumToString.parse(dateTimeInputState)}');
+            Log.t('date_time_input_widget hasData .. state:${EnumToString.parse(dateTimeInputState)}');
             return widget.dateTimeWidget(
               context,
               _timeWrapper(snapshot.data),
