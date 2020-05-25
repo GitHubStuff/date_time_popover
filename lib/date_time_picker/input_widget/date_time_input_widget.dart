@@ -96,7 +96,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
         stream: _dateTimeStream.stream,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            Log.d('date_time_input_widget NO DATA');
+            Log.d('** date_time_input_widget NO DATA');
             _oldStartDateTime = _timeWrapper(widget.initialDateTime);
             return widget.dateTimeWidget(
               context,
@@ -107,6 +107,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
             final dateTimeInputState =
                 (_oldStartDateTime != snapshot.data) ? DateTimeInputState.userSet : DateTimeInputState.noChange;
             _oldStartDateTime = snapshot.data;
+            if (dateTimeInputState == DateTimeInputState.userSet) _startingDateTime = snapshot.data;
             Log.d('date_time_input_widget hasData .. state:${EnumToString.parse(dateTimeInputState)}');
             return widget.dateTimeWidget(
               context,
