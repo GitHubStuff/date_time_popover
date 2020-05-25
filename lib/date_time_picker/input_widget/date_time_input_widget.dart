@@ -83,6 +83,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
 
   @override
   Widget build(BuildContext context) {
+    _dateTimeStream = _dateTimeStream ?? DateTimeStream();
     _width = MediaQuery.of(context).size.width;
     _height = MediaQuery.of(context).size.height;
     Log.t('date_time_input_widget build()');
@@ -93,7 +94,6 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
       child: StreamBuilder<DateTime>(
         stream: _dateTimeStream.stream,
         builder: (context, snapshot) {
-          _dateTimeStream.dispose();
           if (!snapshot.hasData) {
             Log.d('date_time_input_widget NO DATA');
             return widget.dateTimeWidget(
@@ -159,6 +159,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
             child: GestureDetector(
               onTap: () {
                 // Dismisses overlay without change
+                _dateTimeStream?.close();
                 this._overlayEntry.remove();
                 widget.dateTimeWidget(
                   context,
