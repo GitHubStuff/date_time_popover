@@ -15,6 +15,7 @@ enum DateTimeInputState {
   dismissed,
   displayed,
   userSet,
+  noChange,
 }
 
 DateTime _timeWrapper(DateTime dateTime) {
@@ -72,6 +73,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
   double _width;
   double _height;
   DateTime _startingDateTime;
+  DateTime _oldStartDateTime;
 
   @override
   void initState() {
@@ -83,7 +85,6 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
 
   @override
   Widget build(BuildContext context) {
-    _dateTimeStream = _dateTimeStream ?? DateTimeStream();
     _width = MediaQuery.of(context).size.width;
     _height = MediaQuery.of(context).size.height;
     Log.t('date_time_input_widget build()');
@@ -102,11 +103,14 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
               DateTimeInputState.inital,
             );
           } else {
-            Log.d('date_time_input_widget hasData');
+            final dateTimeInputState =
+                (_oldStartDateTime != snapshot.data) ? DateTimeInputState.userSet : DateTimeInputState.noChange;
+            _oldStartDateTime = snapshot.data;
+            Log.d('date_time_input_widget hasData .. state:${EnumToString.parse(dateTimeInputState)}');
             return widget.dateTimeWidget(
               context,
               _timeWrapper(snapshot.data),
-              DateTimeInputState.userSet,
+              dateTimeInputState,
             );
           }
         },
@@ -159,7 +163,6 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
             child: GestureDetector(
               onTap: () {
                 // Dismisses overlay without change
-                _dateTimeStream?.close();
                 this._overlayEntry.remove();
                 widget.dateTimeWidget(
                   context,
