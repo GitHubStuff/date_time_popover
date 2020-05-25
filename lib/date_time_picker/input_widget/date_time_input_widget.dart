@@ -2,6 +2,7 @@ import 'dart:async';
 
 import '../common.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project_package/tracers/tracers.dart' as Log;
 
 typedef Widget DateTimeWidget(
   BuildContext context,
@@ -77,12 +78,14 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
     super.initState();
     _startingDateTime = _timeWrapper(widget.initialDateTime ?? DateTime.now());
     _pickerSize = PickerSize(width: widget.pickerWidth);
+    Log.t('date_time_input_widget initState()');
   }
 
   @override
   Widget build(BuildContext context) {
     _width = MediaQuery.of(context).size.width;
     _height = MediaQuery.of(context).size.height;
+    Log.t('date_time_input_widget build()');
 
 // Wrap the passed widget in gesture detector, the 'onTap' will bring up the popover widget
 // that is wrapped in an Overlay widget
@@ -91,12 +94,14 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
         stream: _dateTimeStream.stream,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
+            Log.d('date_time_input_widget NO DATA');
             return widget.dateTimeWidget(
               context,
               _timeWrapper(widget.initialDateTime),
               DateTimeInputState.inital,
             );
           } else {
+            Log.d('date_time_input_widget hasData');
             return widget.dateTimeWidget(
               context,
               _timeWrapper(snapshot.data),
