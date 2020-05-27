@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_package/mode_themes/mode_color.dart';
 import 'package:flutter_project_package/mode_themes/mode_definiations.dart';
-import 'package:intl/intl.dart';
 
 import '../common.dart';
 

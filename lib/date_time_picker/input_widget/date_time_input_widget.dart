@@ -2,7 +2,7 @@ import 'dart:async';
 
 import '../common.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project_package/tracers/tracers.dart' as Log;
+//import 'package:flutter_project_package/tracers/tracers.dart' as Log;
 
 typedef Widget DateTimeWidget(
   BuildContext context,
@@ -15,7 +15,6 @@ enum DateTimeInputState {
   dismissed,
   displayed,
   userSet,
-  noChange,
 }
 
 DateTime _timeWrapper(DateTime dateTime) {
@@ -73,22 +72,19 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
   double _width;
   double _height;
   DateTime _startingDateTime;
-  DateTime _oldStartDateTime;
 
   @override
   void initState() {
-    SetLevel(VERBOSE);
     super.initState();
     _startingDateTime = _timeWrapper(widget.initialDateTime ?? DateTime.now());
     _pickerSize = PickerSize(width: widget.pickerWidth);
-    Log.t('....CALLED ONLY ONCE??? ..............date_time_input_widget initState()');
+    //Log.z('date_time_input_widget initState ${_startingDateTime.toLocal().toString()}');
   }
 
   @override
   Widget build(BuildContext context) {
     _width = MediaQuery.of(context).size.width;
     _height = MediaQuery.of(context).size.height;
-    Log.t('date_time_input_widget build()');
 
 // Wrap the passed widget in gesture detector, the 'onTap' will bring up the popover widget
 // that is wrapped in an Overlay widget
@@ -97,23 +93,16 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
         stream: _dateTimeStream.stream,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            Log.t('** date_time_input_widget NO DATA');
-            _oldStartDateTime = _timeWrapper(widget.initialDateTime);
             return widget.dateTimeWidget(
               context,
-              _oldStartDateTime,
+              _timeWrapper(widget.initialDateTime),
               DateTimeInputState.inital,
             );
           } else {
-            final dateTimeInputState =
-                (_oldStartDateTime != snapshot.data) ? DateTimeInputState.userSet : DateTimeInputState.noChange;
-            _oldStartDateTime = snapshot.data;
-            if (dateTimeInputState == DateTimeInputState.userSet) _startingDateTime = snapshot.data;
-            Log.t('date_time_input_widget hasData .. state:${EnumToString.parse(dateTimeInputState)}');
             return widget.dateTimeWidget(
               context,
               _timeWrapper(snapshot.data),
-              dateTimeInputState,
+              DateTimeInputState.userSet,
             );
           }
         },
@@ -166,12 +155,12 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
             child: GestureDetector(
               onTap: () {
                 // Dismisses overlay without change
+                this._overlayEntry.remove();
                 widget.dateTimeWidget(
                   context,
                   _timeWrapper(widget.initialDateTime),
                   DateTimeInputState.dismissed,
                 );
-                this._overlayEntry.remove();
               },
               child: Opacity(
                 opacity: 0.2,
@@ -232,11 +221,15 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
       type: MaterialType.transparency,
       child: BlocBuilder<DateTimeBloc, DateTimeState>(
         builder: (context, state) {
+          //Log.z('_____ date_time_input_widget state:${state.toString()}');
           if (state is DateTimeSetState) {
             // dismisses overlay and adds event
             this._overlayEntry.remove();
             _dateTimeStream.sink.add(state.dateTime);
+          } else if (state is UpdateDateTimeState) {
+            _startingDateTime = state.dateTime;
           }
+          //Log.z('date_time_input_widget starting Time:${_startingDateTime.toString()}');
           return PopoverContainerWidget(
             pickerSize: _pickerSize,
             initalDateTime: _startingDateTime,
