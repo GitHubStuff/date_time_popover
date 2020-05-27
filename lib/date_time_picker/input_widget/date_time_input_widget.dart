@@ -233,6 +233,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
           //Log.z('_____ date_time_input_widget state:${state.toString()}');
           if (state is DateTimeSetState) {
             // dismisses overlay and adds event
+            _oldStartDateTime = null; //reset will make the button event pass DateTimeInputState.userSet back to widget
             this._overlayEntry.remove();
             _dateTimeStream.sink.add(state.dateTime);
           } else if (state is UpdateDateTimeState) {

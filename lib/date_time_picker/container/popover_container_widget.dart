@@ -2,7 +2,7 @@ import '../../flutter_date_time_popover.dart';
 import '../common.dart';
 //import 'package:flutter_project_package/tracers/tracers.dart' as Log;
 
-const String SET_BUTTON_TEXT = 'Set';
+const String _SET_BUTTON_TEXT = 'Set';
 
 //
 // Widget that wraps the spinners, has the 'SET' button, and displays the picker date/time
@@ -101,7 +101,7 @@ class PopoverContainerWidget extends StatelessWidget with WidgetsBindingObserver
           dateTimeBloc.add(UserSetDateTimeEvent());
         },
         color: colorInheritedWidget.setButtonColors.color(context),
-        child: Text(SET_BUTTON_TEXT,
+        child: Text(_SET_BUTTON_TEXT,
             style: TextStyle(
               fontSize: _pickerSize.fontSize,
               color: ModeDefiniation.contrastColors.color(context),
