@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_package/mode_themes/mode_color.dart';
 import 'package:flutter_project_package/mode_themes/mode_definiations.dart';
-import 'package:intl/intl.dart';
 
 import '../common.dart';
 
@@ -25,7 +24,7 @@ mixin DateMeasurements {
   static const double OFF_AXIS_YEAR = -0.2;
   static const double OFF_AXIS_MONTH = 0.0;
   static const double OFF_AXIS_DAY = 0.2;
-  static const int SCROLL_DELAY_MILLISECONDS = 10;
+  static const int SCROLL_DELAY_MILLISECONDS = 100;
   static const int FEBRUARY = 2;
 
   bool _isLeapYear(int year) => (year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0));

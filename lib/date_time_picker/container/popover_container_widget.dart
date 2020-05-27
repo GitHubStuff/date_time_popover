@@ -1,5 +1,6 @@
 import '../../flutter_date_time_popover.dart';
 import '../common.dart';
+//import 'package:flutter_project_package/tracers/tracers.dart' as Log;
 
 const String SET_BUTTON_TEXT = 'Set';
 
@@ -15,6 +16,7 @@ class PopoverContainerWidget extends StatelessWidget with WidgetsBindingObserver
       : _pickerSize = pickerSize,
         super(key: key) {
     _displayDateTime = initalDateTime;
+    //Log.z('PopoverCOntainerWidget constructor: ${_displayDateTime.toLocal().toString()}');
   }
 
   @override
@@ -57,11 +59,15 @@ class PopoverContainerWidget extends StatelessWidget with WidgetsBindingObserver
         children: <Widget>[
           Expanded(
             child: BlocBuilder<DateTimeBloc, DateTimeState>(builder: (BuildContext context, DateTimeState dayState) {
+              //Log.z('popover_container_widget state: ${dayState.toString()} time:$time');
               if (dayState is UpdateDateTimeState) {
                 _displayDateTime = dayState.dateTime;
+                //Log.z('popover_container_widget#61 ${_displayDateTime.toLocal().toString()}');
                 date = formattedDate(_displayDateTime);
                 time = formattedTime(_displayDateTime);
+                //Log.z('verify: time $time');
               }
+              //Log.z('passing: time $time');
               return Padding(
                 padding: const EdgeInsets.only(top: 4, left: 8),
                 child: Text(

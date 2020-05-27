@@ -2,6 +2,7 @@ import 'dart:async';
 
 import '../common.dart';
 import 'package:flutter/material.dart';
+//import 'package:flutter_project_package/tracers/tracers.dart' as Log;
 
 typedef Widget DateTimeWidget(
   BuildContext context,
@@ -77,6 +78,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
     super.initState();
     _startingDateTime = _timeWrapper(widget.initialDateTime ?? DateTime.now());
     _pickerSize = PickerSize(width: widget.pickerWidth);
+    //Log.z('date_time_input_widget initState ${_startingDateTime.toLocal().toString()}');
   }
 
   @override
@@ -219,11 +221,15 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
       type: MaterialType.transparency,
       child: BlocBuilder<DateTimeBloc, DateTimeState>(
         builder: (context, state) {
+          //Log.z('_____ date_time_input_widget state:${state.toString()}');
           if (state is DateTimeSetState) {
             // dismisses overlay and adds event
             this._overlayEntry.remove();
             _dateTimeStream.sink.add(state.dateTime);
+          } else if (state is UpdateDateTimeState) {
+            _startingDateTime = state.dateTime;
           }
+          //Log.z('date_time_input_widget starting Time:${_startingDateTime.toString()}');
           return PopoverContainerWidget(
             pickerSize: _pickerSize,
             initalDateTime: _startingDateTime,

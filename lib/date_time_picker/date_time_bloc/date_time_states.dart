@@ -1,4 +1,5 @@
 import '../common.dart';
+
 abstract class DateTimeState extends Equatable {
   const DateTimeState();
 
@@ -36,7 +37,7 @@ class InitialDayState extends DateTimeState {
   List<Object> get props => [dateTime];
 
   @override
-  String toString() => 'InitialDayState $dateTime';
+  String toString() => 'InitialDayState {$dateTime}';
 }
 
 class ChangedDateTime extends DateTimeState {
