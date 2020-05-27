@@ -15,6 +15,7 @@ enum DateTimeInputState {
   dismissed,
   displayed,
   userSet,
+  noChange,
 }
 
 DateTime _timeWrapper(DateTime dateTime) {
@@ -72,6 +73,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
   double _width;
   double _height;
   DateTime _startingDateTime;
+  DateTime _oldStartDateTime;
 
   @override
   void initState() {
@@ -93,16 +95,23 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
         stream: _dateTimeStream.stream,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
+            _oldStartDateTime = _timeWrapper(widget.initialDateTime);
             return widget.dateTimeWidget(
               context,
-              _timeWrapper(widget.initialDateTime),
+              _oldStartDateTime,
               DateTimeInputState.inital,
             );
           } else {
+            final dateTimeInputState =
+                (_oldStartDateTime != snapshot.data) ? DateTimeInputState.userSet : DateTimeInputState.noChange;
+            _oldStartDateTime = snapshot.data;
+            if (dateTimeInputState == DateTimeInputState.userSet) {
+              _startingDateTime = snapshot.data;
+            }
             return widget.dateTimeWidget(
               context,
               _timeWrapper(snapshot.data),
-              DateTimeInputState.userSet,
+              dateTimeInputState,
             );
           }
         },
