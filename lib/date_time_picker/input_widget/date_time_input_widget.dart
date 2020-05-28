@@ -78,13 +78,14 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
   @override
   void initState() {
     super.initState();
-    _startingDateTime = _timeWrapper(widget.initialDateTime ?? DateTime.now());
+    //_startingDateTime = _timeWrapper(widget.initialDateTime ?? DateTime.now());
     _pickerSize = PickerSize(width: widget.pickerWidth);
     //Log.z('date_time_input_widget initState ${_startingDateTime.toLocal().toString()}');
   }
 
   @override
   Widget build(BuildContext context) {
+    _startingDateTime = _startingDateTime ?? _timeWrapper(widget.initialDateTime ?? DateTime.now());
     _width = MediaQuery.of(context).size.width;
     _height = MediaQuery.of(context).size.height;
 
