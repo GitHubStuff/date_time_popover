@@ -18,22 +18,22 @@ enum DateTimeInputState {
   noChange,
 }
 
-DateTime _timeWrapper(DateTime dateTime) {
-  return (dateTime == null)
-      ? null
-      : DateTime(
-          dateTime.year,
-          dateTime.month,
-          dateTime.day,
-          dateTime.hour,
-          dateTime.minute,
-          dateTime.second,
-          0,
-          0,
-        );
-}
-
 class DateTimeInputWidget extends StatefulWidget {
+  static DateTime timeWrapper(DateTime dateTime, {bool includeSeconds = true}) {
+    return (dateTime == null)
+        ? null
+        : DateTime(
+            dateTime.year,
+            dateTime.month,
+            dateTime.day,
+            dateTime.hour,
+            dateTime.minute,
+            (includeSeconds ?? true) ? dateTime.second : 0,
+            0,
+            0,
+          );
+  }
+
   final double pickerWidth;
   final DateTimeWidget dateTimeWidget;
   final DateTime initialDateTime;
@@ -85,7 +85,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
 
   @override
   Widget build(BuildContext context) {
-    _startingDateTime = _startingDateTime ?? _timeWrapper(widget.initialDateTime ?? DateTime.now());
+    _startingDateTime = _startingDateTime ?? DateTimeInputWidget.timeWrapper(widget.initialDateTime ?? DateTime.now());
     _width = MediaQuery.of(context).size.width;
     _height = MediaQuery.of(context).size.height;
 
@@ -96,7 +96,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
         stream: _dateTimeStream.stream,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            _oldStartDateTime = _timeWrapper(widget.initialDateTime);
+            _oldStartDateTime = DateTimeInputWidget.timeWrapper(widget.initialDateTime);
             return widget.dateTimeWidget(
               context,
               _oldStartDateTime,
@@ -111,7 +111,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
             }
             return widget.dateTimeWidget(
               context,
-              _timeWrapper(snapshot.data),
+              DateTimeInputWidget.timeWrapper(snapshot.data),
               dateTimeInputState,
             );
           }
@@ -122,7 +122,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
         Overlay.of(context).insert(this._overlayEntry);
         widget.dateTimeWidget(
           context,
-          _timeWrapper(widget.initialDateTime),
+          DateTimeInputWidget.timeWrapper(widget.initialDateTime),
           DateTimeInputState.displayed,
         );
       },
@@ -168,7 +168,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
                 this._overlayEntry.remove();
                 widget.dateTimeWidget(
                   context,
-                  _timeWrapper(widget.initialDateTime),
+                  DateTimeInputWidget.timeWrapper(widget.initialDateTime),
                   DateTimeInputState.dismissed,
                 );
               },
