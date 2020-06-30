@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_package/mode_themes/mode_color.dart';
-import 'package:flutter_project_package/mode_themes/mode_definiations.dart';
+import 'package:mode_theme/mode_theme.dart';
 
 import '../common.dart';
 

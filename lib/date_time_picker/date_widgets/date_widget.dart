@@ -1,3 +1,5 @@
+import 'package:mode_theme/mode_theme.dart';
+
 import '../common.dart';
 
 class DateWidget extends StatelessWidget with WidgetsBindingObserver, DateMeasurements {

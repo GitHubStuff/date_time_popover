@@ -3,7 +3,6 @@ export 'package:flutter/material.dart';
 export 'package:enum_to_string/enum_to_string.dart';
 export 'package:equatable/equatable.dart';
 export 'package:after_layout/after_layout.dart';
-export 'package:flutter_project_package/flutterprojectpackage.dart';
 
 export '../date_time_picker/bounding_container/bounding_container_with_arrows.dart';
 

@@ -1,5 +1,4 @@
-import 'package:flutter_project_package/tracers/tracers.dart' as Log;
-
+import 'package:tracers/tracers.dart' as Log;
 import '../common.dart';
 
 enum DateTimeElements { year, month, day, hour, minute, second }

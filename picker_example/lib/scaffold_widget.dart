@@ -1,7 +1,8 @@
+import 'package:date_time_popover/date_time_picker/common.dart';
+import 'package:date_time_popover/flutter_date_time_popover.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_date_time_popover/flutter_date_time_popover.dart';
-import 'package:flutter_project_package/mode_themes/mode_theme.dart';
-import 'package:flutter_project_package/tracers/tracers.dart' as Log;
+import 'package:mode_theme/mode_theme.dart';
+import 'package:tracers/tracers.dart' as Log;
 
 const double WIDTH = 300;
 

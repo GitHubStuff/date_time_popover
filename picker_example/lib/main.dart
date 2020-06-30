@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_package/mode_themes/mode_theme.dart';
+import 'package:mode_theme/mode_theme.dart';
 
 import 'scaffold_widget.dart';
 
