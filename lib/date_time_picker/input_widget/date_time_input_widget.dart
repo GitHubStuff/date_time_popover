@@ -222,7 +222,7 @@ class _DateTimeInputWidgetState extends State<DateTimeInputWidget> {
             _startingDateTime,
           ),
         ),
-        BlocProvider<PickerBloc>(create: (BuildContext context) => PickerBloc())
+        BlocProvider<PickerBloc>(create: (BuildContext context) => PickerBloc(InitialPickerState()))
       ],
       child: _popoverChild(),
     );

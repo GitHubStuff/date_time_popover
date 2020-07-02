@@ -3,10 +3,9 @@ import 'package:tracers/tracers.dart' as Log;
 
 class PickerBloc extends Bloc<PickerEvent, PickerState> {
   DatePickerType _datePickerType = DatePickerType.date;
-  DatePickerType get datePickerType => _datePickerType;
 
-  @override
-  PickerState get initialState => InitialPickerState();
+  PickerBloc(PickerState initialState) : super(initialState);
+  DatePickerType get datePickerType => _datePickerType;
 
   @override
   Stream<PickerState> mapEventToState(PickerEvent event) async* {

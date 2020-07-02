@@ -11,6 +11,12 @@ String formattedDate(DateTime dateTime) {
   return DateFormat('EEE, MMM d, yyyy').format(dateTime);
 }
 
+String formattedDateTime(DateTime dateTime) {
+  assert(dateTime != null, 'Cannot pass null dateTime');
+  if (dateTime == null) throw FlutterError('Cannot pass "null" dateTime to "formattedTime(dateTime)"');
+  return '${formattedDate(dateTime)} ${formattedTime(dateTime)}';
+}
+
 String formattedTime(DateTime dateTime) {
   assert(dateTime != null, 'Cannot pass null dateTime');
   if (dateTime == null) throw FlutterError('Cannot pass "null" dateTime to "formattedTime(dateTime)"');

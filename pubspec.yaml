@@ -1,6 +1,6 @@
 name: date_time_popover
 description: Flutter Day and Time Picker
-version: 1.2.7+4
+version: 1.2.8+0
 
 environment:
   sdk: ">=2.8.0 <3.0.0"
@@ -9,10 +9,10 @@ dependencies:
   flutter:
     sdk: flutter
   after_layout: ^1.0.7+2
-  bloc: ^4.0.0
+  bloc: ^5.0.0
   enum_to_string: 1.0.9
-  equatable: ^1.1.1
-  flutter_bloc: ^4.0.0
+  equatable: ^1.2.0
+  flutter_bloc: ^5.0.0
   flutter_modular: ^1.1.2
   intl: ^0.16.1
   cupertino_icons: ^0.1.3

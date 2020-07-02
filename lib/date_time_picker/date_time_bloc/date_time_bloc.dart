@@ -8,12 +8,9 @@ class DateTimeBloc extends Bloc<DayTimeEvent, DateTimeState> with DateMeasuremen
   DateTime get currentDateTime => _currentDateTime;
   Meridian _meridian;
 
-  DateTimeBloc(this._currentDateTime) {
+  DateTimeBloc(this._currentDateTime) : super(null) {
     _meridian = _currentDateTime.hour < 12 ? Meridian.AM : Meridian.PM;
   }
-
-  @override
-  DateTimeState get initialState => InitialDayState(_currentDateTime);
 
   @override
   Stream<DateTimeState> mapEventToState(DayTimeEvent event) async* {
